@@ -15,7 +15,7 @@ public class TestPlugin {
     private static boolean languageNotSet = true;
     private static String glanguage = "en-US";
     private static int gMaxResults= 10;
-
+    private static SpeechRecognizer mRecognizer;
 
     public static String getMessage() {
         return "Hello World!";
@@ -48,6 +48,10 @@ public class TestPlugin {
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, glanguage);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, gMaxResults);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, gQuestion);
+        mRecognizer = SpeechRecognizer.createSpeechRecognizer(this); 
+        mRecognizer.setRecognitionListener(listener); 
+        mRecognizer.startListening(i);
+
 
         try {
             UnityPlayer.currentActivity.startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
